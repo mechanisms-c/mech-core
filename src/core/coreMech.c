@@ -41,18 +41,16 @@ MechInstPtr mechAlloc(MechType* mechType) {
     return this;
 }
 
-// Invoke a mechanism as a numeric primitive
 int64_t evalInt(MechInstPtr this) {
-    return this && this->mechType && this->mechType->evalNum ? (this->mechType->evalNum)(this) : NAN;
+    MAKE_CALL(evalNum, NAN);
 }
 
-// Invoke a mechanism as a double primitive
 double evalReal(MechInstPtr this) {
-    return this && this->mechType && this->mechType->evalReal ? (this->mechType->evalReal)(this) : NAN;
+    MAKE_CALL(evalReal, NAN);
 }
 
 // Invoke a mechanism as a boolean primitive
 // defaults to false
 bool evalBool(MechInstPtr this) {
-    return this && this->mechType && this->mechType->evalBool ? (this->mechType->evalBool)(this) : false;
+    MAKE_CALL(evalBool, false);
 }

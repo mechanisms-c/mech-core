@@ -67,6 +67,7 @@ typedef struct {
 } DualArgData;
 
 #define DATA_GET(dataType) dataType* data = (dataType*)(this + sizeof(MechInstStruct));
+#define MAKE_CALL(function, default) return this && this->mechType && this->mechType->function ? (this->mechType->function)(this) : default;
 
 #endif /* defined(__mechanisms__core__mech__) */
 

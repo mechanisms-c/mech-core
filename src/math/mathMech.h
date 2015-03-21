@@ -16,6 +16,8 @@
 #include <stdio.h>
 #include "coreMech.h"
 
+#define MAKE_DUAL_CALL(function, operation) return function(data->left) operation function(data->right);
+
 MechInstPtr add(MechInstPtr left, MechInstPtr right);
 
 #endif /* defined(__mechanisms__math__mech__) */

@@ -19,7 +19,7 @@
 int64_t addInt(MechInstPtr this) {
     if(this) {
         DATA_GET(DualArgData);
-        return evalInt(data->left) + evalInt(data->right);
+        MAKE_DUAL_CALL(evalInt, +);
     }
     return NAN;
 };
@@ -27,7 +27,7 @@ int64_t addInt(MechInstPtr this) {
 double addReal(MechInstPtr this) {
     if(this) {
         DATA_GET(DualArgData);
-        return evalReal(data->left) + evalReal(data->right);
+        MAKE_DUAL_CALL(evalReal, +);
     }
     return NAN;
 };
