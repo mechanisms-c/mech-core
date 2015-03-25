@@ -16,13 +16,13 @@
 #ifndef __mechanisms__mechCore__
 #define __mechanisms__mechCore__
 
-#include <stdio.h>
-#include <stdbool.h>
+#include <stdio.h> // int*_t
+#include <stdbool.h> // bool
 
-// Base object instance of a mechanisms
-typedef struct InstanceStruct InstanceStruct;
-typedef InstanceStruct* Object;
-struct InstanceStruct {
+// Object instance of a Mechanism.
+typedef struct ObjectStruct ObjectStruct;
+typedef ObjectStruct* Object;
+struct ObjectStruct {
     Object type;
     Object error;
 };
