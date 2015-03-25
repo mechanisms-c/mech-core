@@ -1,61 +1,56 @@
+////
+////  add.c
+////  mechanisms
+////
+////  Created on: 3/21/15
+////  authors:
+////    Eric Hosick <erichosick@gmail.com>
+////  license:
+////    The MIT License (MIT)
+////    Copyright (c) 2015 Eric Hosick
+////
 //
-//  add.c
-//  mechanisms
+//#include <assert.h>
+//#include <math.h> // NAN
+//#include "mathMech.h"
+//#include "coreMech.h"
 //
-//  Created on: 3/21/15
-//  authors:
-//    Eric Hosick <erichosick@gmail.com>
-//  license:
-//    The MIT License (MIT)
-//    Copyright (c) 2015 Eric Hosick
+//int64_t addInt(MechInstPtr this) {
+//    if(!this) { return NAN; }
+//    DATA_GET(DualArg);
+//    MAKE_DUAL_CALL(evalInt, +);
+//};
 //
-
-#include <assert.h>
-#include <math.h> // NAN
-#include "mathMech.h"
-#include "coreMech.h"
-
-// Add Mechanism
-int64_t addInt(MechInstPtr this) {
-    if(this) {
-        DATA_GET(DualArgData);
-        MAKE_DUAL_CALL(evalInt, +);
-    }
-    return NAN;
-};
-
-double addReal(MechInstPtr this) {
-    if(this) {
-        DATA_GET(DualArgData);
-        MAKE_DUAL_CALL(evalReal, +);
-    }
-    return NAN;
-};
-
-MechType addMech = {
+//double addReal(MechInstPtr this) {
+//    if(!this) { return NAN; }
+//    DATA_GET(DualArg);
+//    MAKE_DUAL_CALL(evalReal, +);
+//};
+//
+MechInstPtr addMech = {
     .majorVer = 1,
     .minorVer = 0,
     .flags = 0,
-    .dataSize = sizeof(DualArgData),
+    .dataSize = sizeof(DualArg),
     .name = "add",
-    .lookup = NULL,
-    .delete = NULL,
-    .evalNum = &addInt,
+    .lookup = &nullVoid,
+    .delete = &nullVoid,
+    .evalInt = &addInt,
     .evalReal = &addReal,
-    .evalBool = NULL
+    .evalBool = &nullBool // TODO: Boolean
 };
 
-MechInstPtr add(MechInstPtr left, MechInstPtr right) {
-    MechInstPtr this = mechAlloc(&addMech);
-    if(this) {
-        DATA_GET(DualArgData);
-        data->left = left;
-        data->right = right;
-    }
-    return this;
+Object addObjectGet() {
+    return (Object)addMech;
 }
 
 
-
-
-
+//MechInstPtr add(MechInstPtr left, MechInstPtr right) {
+//    MechInstPtr this = mechAlloc(&addMech);
+//    if(this) {
+//        DATA_GET(DualArg);
+//        data->left = left;
+//        data->right = right;
+//    }
+//    return this;
+//}

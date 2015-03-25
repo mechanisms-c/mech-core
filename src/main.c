@@ -18,17 +18,24 @@
 #include <dlfcn.h>
 #include "coreMech.h"
 #include "primitives.h"
-#include "mathMech.h"
-#include "writeLn.h"
+//#include "mathMech.h"
+//#include "writeLn.h"
 
 int main() {
-    evalInt(
-        writeLn(
-            add(
-                add(num(-2), num(3)),
-                add(num(4), num(5))
-            )
-        )
-    );
+//    MechInstPtr num2 = num(-2);
+//    evalInt(num2);
+    
+//    evalBool(
+//        writeLn(null())
+//    );
+//    
+//    evalInt(
+//        writeLn(
+//            add(
+//                add(num(-2), num(3)),
+//                add(num(4), num(5))
+//            )
+//        )
+//    );
     return 0;
 }
