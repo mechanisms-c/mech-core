@@ -19,15 +19,29 @@
 #include <stdio.h> // int*_t
 #include <stdbool.h> // bool
 
-// Object instance of a Mechanism.
+// An Mechanism instance is stored in Structures
+// that always start with the following two fields:
+//
+// struct SomeStruct {
+//     Object type;
+//     Object error;
+//     // Object field01
+//     // ...
+// };
+//
+// All Mechanism instances are cast to an Object
+// (ObjectStructure*).
 typedef struct ObjectStruct ObjectStruct;
 typedef ObjectStruct* Object;
 struct ObjectStruct {
-    Object type;
-    Object error;
+    Object type;    // Mechanism type (see MechanismStruct)
+    Object error;   // Instance errors.
 };
 
-// Function signatures
+// A Mechanism's algorithm can return one or more
+// primitive types (different Catamorphism /
+// transformations). These function signatures
+// define the available catamorphisms.
 typedef void    (*voidFPtr)(Object);
 typedef int64_t (*intFPtr )(Object);
 typedef double  (*realFPtr)(Object);
@@ -36,12 +50,18 @@ typedef char*   (*strFPtr )(Object);
 typedef char    (*charFPtr)(Object);
 typedef Object  (*objFPtr )(Object);
 
-// Base type object instance structure.
+// Defines a Mechanism type. A mechanism type
+// is some meta data (type, error, majorVer,
+// minorVer, flags and dataSize) and a set
+// of function pointers for each primitive type
+// (catamorphisms / transformation).
+// A Mechanism type is also an instance of a
+// mechanism.
 typedef struct MechanismStruct MechanismStruct;
 typedef MechanismStruct* Mechanism;
 struct MechanismStruct {
-    Object      type;
-    Object      error;
+    Object      type;      // Mechanism type (see MechanismStruct)
+    Object      error;     // Instance errors.
     uint8_t     majorVer;  // Major Version
     uint8_t     minorVer;  // Minor Version
     uint32_t    flags;     // Set aside for flags
