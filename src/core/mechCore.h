@@ -19,7 +19,7 @@
 #include <stdio.h> // int*_t
 #include <stdbool.h> // bool
 
-// An Mechanism instance is stored in Structures
+// A Mechanism instance is stored in Structures
 // that always start with the following two fields:
 //
 // struct SomeStruct {
