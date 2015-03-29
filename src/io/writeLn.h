@@ -16,6 +16,6 @@
 //#include <stdio.h>
 //#include "coreMech.h"
 //
-//MechInstPtr writeLn(MechInstPtr text);
+//Mech writeLn(Mech text);
 //
 //#endif /* defined(__mechanisms__writeLn__) */

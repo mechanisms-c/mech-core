@@ -16,13 +16,14 @@
 #include <stdio.h>
 #include <math.h>
 #include <dlfcn.h>
-#include "coreMech.h"
-#include "primitives.h"
-//#include "mathMech.h"
-//#include "writeLn.h"
+#include "empty.h"
+#include "mechCore.h"
 
 int main() {
-//    MechInstPtr num2 = num(-2);
+   
+    assert(false == evalBool(empty()));
+    
+//    Mech num2 = num(-2);
 //    evalInt(num2);
     
 //    evalBool(

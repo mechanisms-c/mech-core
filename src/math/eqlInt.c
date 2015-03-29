@@ -15,7 +15,7 @@
 //#include "mathMech.h"
 //#include "coreMech.h"
 //
-//bool eqlIntBool(MechInstPtr this) {
+//bool eqlIntBool(Mech this) {
 //    DATA_GET(DualArg);
 //    MAKE_DUAL_CALL(evalInt, ==)
 //};
@@ -33,8 +33,8 @@
 //    .evalBool = &eqlIntBool
 //};
 //
-//MechInstPtr eqlInt(MechInstPtr left, MechInstPtr right) {
-//    MechInstPtr this = mechAlloc(&eqlIntMech);
+//Mech eqlInt(Mech left, Mech right) {
+//    Mech this = mechAlloc(&eqlIntMech);
 //    if(this) {
 //        DATA_GET(DualArg);
 //        data->left = left;

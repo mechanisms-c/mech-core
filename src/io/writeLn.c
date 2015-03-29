@@ -13,7 +13,7 @@
 //#include <assert.h> // assert
 //#include "writeLn.h" // printf
 //
-//static int64_t writeLnInt(MechInstPtr this) {
+//static int64_t writeLnInt(Mech this) {
 //    assert(this);
 //    DATA_GET(SingleArg);
 //    int64_t result = evalInt(data->left);
@@ -21,7 +21,7 @@
 //    return result;
 //};
 //
-//static double writeLnReal(MechInstPtr this) {
+//static double writeLnReal(Mech this) {
 //    assert(this);
 //    SingleArg* data = (SingleArg*)(this + sizeof(MechInstStruct));
 //    double result = evalReal(data->left);
@@ -29,7 +29,7 @@
 //    return result;
 //};
 //
-//static bool writeLnBool(MechInstPtr this) {
+//static bool writeLnBool(Mech this) {
 //    assert(this);
 //    DATA_GET(SingleArg);
 //    bool result = evalBool(data->left);
@@ -51,7 +51,7 @@
 //};
 //
 //Object writeLn(Object text) {
-//    MechInstPtr this = mechAlloc(&writeLnType);
+//    Mech this = mechAlloc(&writeLnType);
 //    if(this) {
 //        DATA_GET(SingleArg);
 //        data->left = text;

@@ -15,6 +15,6 @@
 //
 //#include "coreMech.h"
 //
-//MechInstPtr num(int64_t d);
+//Mech num(int64_t d);
 //
 //#endif /* defined(__mechanisms__num__) */

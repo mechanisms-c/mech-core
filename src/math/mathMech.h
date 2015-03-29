@@ -18,7 +18,7 @@
 //
 //#define MAKE_DUAL_CALL(function, operation) return function(data->left) operation function(data->right);
 //
-//MechInstPtr add(MechInstPtr left, MechInstPtr right);
-//MechInstPtr eqlInt(MechInstPtr left, MechInstPtr right);
+//Mech add(Mech left, Mech right);
+//Mech eqlInt(Mech left, Mech right);
 //
 //#endif /* defined(__mechanisms__math__mech__) */

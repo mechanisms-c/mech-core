@@ -15,15 +15,15 @@
 //#include <stdbool.h> // bool
 //#include "primitives.h"
 //
-//int64_t numInt(MechInstPtr this) {
+//int64_t numInt(Mech this) {
 //    return this ? *((int64_t*)(this + sizeof(MechInstStruct))) : NAN;
 //};
 //
-//double numReal(MechInstPtr this) {
+//double numReal(Mech this) {
 //    return this ? (double)*((uint64_t*)(this + sizeof(MechInstStruct))) : NAN;
 //};
 //
-//bool numBool(MechInstPtr this) {
+//bool numBool(Mech this) {
 //    return this ? (0 < *((uint64_t*)(this + sizeof(MechInstStruct)))) : false;
 //};
 //
@@ -40,8 +40,8 @@
 //    .evalBool = &numBool
 //};
 //
-//MechInstPtr num(int64_t d) {
-//    MechInstPtr this = mechAlloc(&numMech);
+//Mech num(int64_t d) {
+//    Mech this = mechAlloc(&numMech);
 //    if(this) {
 //        int64_t* data = (int64_t*)(this + sizeof(MechInstStruct));
 //        *data = d;
