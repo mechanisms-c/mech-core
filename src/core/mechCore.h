@@ -29,7 +29,17 @@ char    evalChar  (Mech this);
 Mech    evalMechF (Mech this);
 void    evalVoid  (Mech this);
 
+bool    mechIsStatic (Mech this);
+bool    mechIsNotStatic (Mech this);
+
+// Empty/Null Mechanisms
+
+void    emptyVoid(Mech this);
+
+// The "NULL" mechanism instance.
+extern Mech EMPTY;
+
+// The empty mechanism.
+Mech empty();
+
 #endif /* defined(__mechanisms__mechCore__) */
-
-
-

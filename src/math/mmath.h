@@ -1,5 +1,5 @@
 //
-//  primitives.h
+//  mmath.h
 //  mechanisms
 //
 //  Created on: 3/21/15
@@ -9,14 +9,12 @@
 //    The MIT License (MIT)
 //    Copyright (c) 2015 Eric Hosick
 //
-
-#ifndef __mechanisms__num__
-#define __mechanisms__num__
+#ifndef mechanisms_mmath_h
+#define mechanisms_mmath_h
 
 #include "mechType.h"
 
-Mech num(int64_t d);
-Mech str(char *);
+Mech add(Mech left, Mech right);
+Mech eqInt(Mech left, Mech right);
 
-#endif /* defined(__mechanisms__num__) */
-
+#endif

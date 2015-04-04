@@ -2,14 +2,19 @@
 //  empty.c
 //  mechanisms
 //
-//  Created by Eric Hosick on 3/28/15.
-//  Copyright (c) 2015 Eric Hosick. All rights reserved.
+//  Created on: 3/28/15
+//  authors:
+//    Eric Hosick <erichosick@gmail.com>
+//  license:
+//    The MIT License (MIT)
+//    Copyright (c) 2015 Eric Hosick
 //
 
 #include <math.h>     // NAN
 #include <stdbool.h>  // boolean
 #include "mechType.h" // MechType
-#include "empty.h"
+#include "mechMath.h" // INT64_MIN
+#include "mechCore.h"
 
 // An empty/null Mechanism.
 typedef struct {
@@ -37,9 +42,54 @@ typedef struct {
     Mech p20;
 } EmptyStruct;
 
+static int64_t asInt(Mech this) {
+    return INT64_NAN;
+};
+
+static double asReal(Mech this) {
+    return NAN;
+};
+
+static bool asBool(Mech this) {
+    return false;
+}
+
+static char* asStr(Mech this) {
+    return "";
+}
+
+static char asChar(Mech this) {
+    return 0;
+}
+
+static Mech asMechF(Mech this) {
+    return EMPTY;
+}
+
+MechTypeStruct emptyType = {
+    .type = &emptyType,
+    .error = (Mech)&emptyType,
+    .majorVer = 1,
+    .minorVer = 0,
+    .flags = 0x01L,
+    .dataSize = sizeof(EmptyStruct),
+    .name = "empty",
+    .lookup = &emptyVoid,
+    .delete = &emptyVoid,
+    .evalInt = &asInt,
+    .evalReal = &asReal,
+    .evalBool = &asBool,
+    .evalStr = &asStr,
+    .evalChar = &asChar,
+    .evalMech = &asMechF,
+    .evalVoid = &emptyVoid
+};
+
+Mech EMPTY_MECH = (Mech)&emptyType;
+
 // The one empty instance
 EmptyStruct emptyMech = {
-    .type = (Mech)&emptyMech,
+    .type = (Mech)&emptyType,
     .error = (Mech)&emptyMech,
     .p01 = (Mech)&emptyMech,
     .p02 = (Mech)&emptyMech,
@@ -65,54 +115,6 @@ EmptyStruct emptyMech = {
 
 Mech EMPTY = (Mech)&emptyMech;
 
-static int64_t emptyInt(Mech this) {
-    return NAN;
-};
-
-static double emptyReal(Mech this) {
-    return NAN;
-};
-
-static bool emptyBool(Mech this) {
-    return false;
-}
-
-static char* emptyStr(Mech this) {
-    return "";
-}
-
-static char emptyChar(Mech this) {
-    return 0;
-}
-
-static Mech emptyMechF(Mech this) {
-    return EMPTY;
-}
-
-static void emptyVoid(Mech this) {
-}
-
-MechTypeStruct emptyType = {
-    .type = &emptyType,
-    .error = (Mech)&emptyType,
-    .majorVer = 1,
-    .minorVer = 0,
-    .flags = 0,
-    .dataSize = sizeof(EmptyStruct),
-    .name = "empty",
-    .lookup = &emptyVoid,
-    .delete = &emptyVoid,
-    .evalInt = &emptyInt,
-    .evalReal = &emptyReal,
-    .evalBool = &emptyBool,
-    .evalStr = &emptyStr,
-    .evalChar = &emptyChar,
-    .evalMech = &emptyMechF,
-    .evalVoid = &emptyVoid
-};
-
-Mech EMPTY_MECH = (Mech)&emptyType;
-
 Mech empty() {
-    return EMPTY_MECH;
+    return EMPTY;
 }

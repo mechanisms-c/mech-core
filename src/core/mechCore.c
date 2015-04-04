@@ -2,19 +2,30 @@
 //  mechCore.c
 //  mechanisms
 //
-//  Created by Eric Hosick on 3/24/15.
-//  Copyright (c) 2015 Eric Hosick. All rights reserved.
+//  Created on: 3/24/15
+//  authors:
+//    Eric Hosick <erichosick@gmail.com>
+//  license:
+//    The MIT License (MIT)
+//    Copyright (c) 2015 Eric Hosick
 //
 
 #include <stdlib.h>  // free
-
 #include "mechType.h"
 #include "mechCore.h"
-#include "empty.h"
+
+bool mechIsStatic(Mech this) {
+    return FLAG2_IS_STATIC == (this->type->flags && FLAG2_IS_STATIC);
+}
+
+bool mechIsNotStatic(Mech this) {
+    return FLAG2_IS_STATIC != (this->type->flags && FLAG2_IS_STATIC);
+}
 
 // Free allocated memory of ANY mechanism
+// Never 'free' a staticalluy allocated Mechanism on the HEAP
 void mechFree(Mech this) {
-    if (EMPTY != this) { // Never 'free' the EMPTY Mechanism
+    if (mechIsNotStatic(this)) {
         (this->type->delete)(this);
         free(this);
     }
@@ -33,12 +44,14 @@ Mech mechAlloc(MechType mechType) {
     return this;
 }
 
+// Flags to uniquely identify a mechanism
+const uint32_t FLAG2_IS_STATIC = 0x01;
+
 // Invoke a mechanism under a given primitive
 // data type.
 
 int64_t evalInt(Mech this) {
-    int64_t result = (this->type->evalInt)(this);
-    return result;
+    return (this->type->evalInt)(this);
 }
 
 double evalReal(Mech this) {
@@ -64,3 +77,7 @@ Mech evalMechF(Mech this) {
 void evalVoid(Mech this) {
     (this->type->evalVoid)(this);
 }
+
+void emptyVoid(Mech this) {
+}
+

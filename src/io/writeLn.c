@@ -1,60 +1,75 @@
-////  writeLn.c
-////  mechanisms
-////
-////  Created on: 3/21/15
-////  authors:
-////    Eric Hosick <erichosick@gmail.com>
-////  license:
-////    The MIT License (MIT)
-////    Copyright (c) 2015 Eric Hosick
-////
 //
-//#include <math.h> // NAN
-//#include <assert.h> // assert
-//#include "writeLn.h" // printf
+//  writeLn.c
+//  mechanisms
 //
-//static int64_t writeLnInt(Mech this) {
-//    assert(this);
-//    DATA_GET(SingleArg);
-//    int64_t result = evalInt(data->left);
-//    printf("%lli\n", result);
-//    return result;
-//};
+//  Created on: 3/21/15
+//  authors:
+//    Eric Hosick <erichosick@gmail.com>
+//  license:
+//    The MIT License (MIT)
+//    Copyright (c) 2015 Eric Hosick
 //
-//static double writeLnReal(Mech this) {
-//    assert(this);
-//    SingleArg* data = (SingleArg*)(this + sizeof(MechInstStruct));
-//    double result = evalReal(data->left);
-//    printf("%f\n", result);
-//    return result;
-//};
-//
-//static bool writeLnBool(Mech this) {
-//    assert(this);
-//    DATA_GET(SingleArg);
-//    bool result = evalBool(data->left);
-//    printf("%i\n", result);
-//    return result;
-//}
-//
-//MechType writeLnType = {
-//    .majorVer = 1,
-//    .minorVer = 0,
-//    .flags = 0,
-//    .dataSize = sizeof(SingleArg),
-//    .name = "writeLn",
-//    .lookup = &nullVoid,
-//    .delete = &nullVoid,
-//    .evalInt = &writeLnInt,
-//    .evalReal = &writeLnReal,
-//    .evalBool = &writeLnBool
-//};
-//
-//Object writeLn(Object text) {
-//    Mech this = mechAlloc(&writeLnType);
-//    if(this) {
-//        DATA_GET(SingleArg);
-//        data->left = text;
-//    }
-//    return this;
-//}
+
+#include "mechCore.h"
+#include "writeLn.h"
+
+static int64_t asInt(Mech this) {
+    int64_t result = evalInt(((SingleArgStruct*)this)->left);
+    printf("%lli\n", result);
+    return result;
+};
+
+static double asReal(Mech this) {
+    double result = evalReal(((SingleArgStruct*)this)->left);
+    printf("%f\n", result);
+    return result;
+};
+
+static bool asBool(Mech this) {
+    bool result = evalBool(((SingleArgStruct*)this)->left);
+    printf("%i\n", result);
+    return result;
+}
+
+static char* asStr(Mech this) {
+    char* result = evalStr(((SingleArgStruct*)this)->left);
+    printf("%s\n", result);
+    return result;
+}
+
+static char asChar(Mech this) {
+    char result = evalChar(((SingleArgStruct*)this)->left);
+    printf("%c\n", result);
+    return result;
+}
+
+static Mech asMechF(Mech this) {
+    return this; // TODO: What does it mean to print a mechanism?
+}
+
+MechTypeStruct writeLnMech = {
+    .type = &writeLnMech,
+    .error = NULL,
+    .majorVer = 1,
+    .minorVer = 0,
+    .flags = 0,
+    .dataSize = sizeof(SingleArgStruct),
+    .name = "writeLn",
+    .lookup = &emptyVoid,
+    .delete = &emptyVoid,
+    .evalInt = &asInt,
+    .evalReal = &asReal,
+    .evalBool = &asBool,
+    .evalStr = &asStr,
+    .evalChar = &asChar,
+    .evalMech = &asMechF,
+    .evalVoid = &emptyVoid
+};
+
+Mech writeLn(Mech left) {
+    Mech this = mechAlloc(&writeLnMech);
+    if(EMPTY != this) {
+        ((SingleArgMech)this)->left = left;
+    }
+    return this;
+}

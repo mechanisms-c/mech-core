@@ -1,8 +1,8 @@
 //
-//  add.c
+//  eqInt.c
 //  mechanisms
 //
-//  Created on: 4/04/15
+//  Created on: 3/21/15
 //  authors:
 //    Eric Hosick <erichosick@gmail.com>
 //  license:
@@ -10,18 +10,19 @@
 //    Copyright (c) 2015 Eric Hosick
 //
 
+#include <stdio.h>   // malloc
 #include "mechCore.h"
 
 static int64_t asInt(Mech this) {
-    return evalInt(((DualArgMech)this)->left) + evalInt(((DualArgMech)this)->right);
+    return evalBool(this);
 };
 
 static double asReal(Mech this) {
-    return (double)asInt(this);
+    return evalBool(this);
 };
 
 static bool asBool(Mech this) {
-    return 0 < asInt(this);
+    return evalInt(((DualArgMech)this)->left) == evalInt(((DualArgMech)this)->right);
 }
 
 static char* asStr(Mech this) {
@@ -29,21 +30,21 @@ static char* asStr(Mech this) {
 }
 
 static char asChar(Mech this) {
-    return 0; // TODO
+    return evalBool(this);
 }
 
 static Mech asMechF(Mech this) {
     return this; // TODO
 }
 
-MechTypeStruct addMech = {
-    .type = &addMech,
+MechTypeStruct eqIntMech = {
+    .type = &eqIntMech,
     .error = NULL,
     .majorVer = 1,
     .minorVer = 0,
     .flags = 0,
     .dataSize = sizeof(DualArgStruct),
-    .name = "add",
+    .name = "eqInt",
     .lookup = &emptyVoid,
     .delete = &emptyVoid,
     .evalInt = &asInt,
@@ -55,8 +56,8 @@ MechTypeStruct addMech = {
     .evalVoid = &emptyVoid
 };
 
-Mech add(Mech left, Mech right) {
-    Mech this = mechAlloc(&addMech);
+Mech eqInt(Mech left, Mech right) {
+    Mech this = mechAlloc(&eqIntMech);
     if(EMPTY != this) {
         ((DualArgMech)this)->left = left;
         ((DualArgMech)this)->right= right;

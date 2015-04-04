@@ -1,5 +1,5 @@
 //
-//  num.c
+//  str.c
 //  mechanisms
 //
 //  Created on: 3/21/15
@@ -16,19 +16,19 @@
 #include "mechMath.h" // INT64_NAN
 
 static int64_t asInt(Mech this) {
-    return ((NumStruct*)this)->d;
+    return 0;
 };
 
 static double asReal(Mech this) {
-    return (double)((NumStruct*)this)->d;
+    return 0;
 };
 
 static bool asBool(Mech this) {
-    return 0 < ((NumStruct*)this)->d;
+    return false;
 }
 
 static char* asStr(Mech this) {
-    return ""; // TODO
+    return ((StrStruct*)this)->d;
 }
 
 static char asChar(Mech this) {
@@ -36,17 +36,17 @@ static char asChar(Mech this) {
 }
 
 static Mech asMechF(Mech this) {
-    return this; // TODO
+    return this;
 }
 
-MechTypeStruct numMech = {
-    .type = &numMech,
+MechTypeStruct strMech = {
+    .type = &strMech,
     .error = NULL,
     .majorVer = 1,
     .minorVer = 0,
     .flags = 0,
-    .dataSize = sizeof(NumStruct),
-    .name = "num",
+    .dataSize = sizeof(StrStruct),
+    .name = "str",
     .lookup = &emptyVoid,
     .delete = &emptyVoid,
     .evalInt = &asInt,
@@ -58,15 +58,14 @@ MechTypeStruct numMech = {
     .evalVoid = &emptyVoid
 };
 
-
-MechTypeStruct numEmptyMech = {
-    .type = &numMech,
+MechTypeStruct strEmptyMech = {
+    .type = &strMech,
     .error = NULL,
     .majorVer = 1,
     .minorVer = 0,
     .flags = 0x01,
     .dataSize = sizeof(NumStruct),
-    .name = "numEmpty",
+    .name = "strEmpty",
     .lookup = &emptyVoid,
     .delete = &emptyVoid,
     .evalInt = &asInt,
@@ -79,19 +78,19 @@ MechTypeStruct numEmptyMech = {
 };
 
 // The one empty instance
-NumStruct emptyNum = {
-    .type = &numEmptyMech,
+StrStruct strEmpty = {
+    .type = &strEmptyMech,
     .error = NULL,
-    .d = INT64_NAN
+    .d = ""
 };
 
-Mech num(int64_t d) {
-    NumStruct* this = (NumStruct*)malloc(sizeof(NumStruct));
+Mech str(char* d) {
+    StrStruct* this = (StrStruct*)malloc(sizeof(StrStruct));
     if(NULL != this) {
-        this->type = &numMech;
+        this->type = &strMech;
         this->d = d;
     } else {
-        this = &emptyNum;
+        this = &strEmpty;
     }
     return (Mech)this;
 }
